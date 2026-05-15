@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | VhispDobola</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,286 +12,876 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card-hover: #1a1a25;
+            --purple-primary: #9333ea;
+            --purple-light: #c084fc;
+            --purple-glow: rgba(147, 51, 234, 0.4);
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1aa;
+            --border-subtle: rgba(147, 51, 234, 0.2);
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--purple-primary);
+            border-radius: 4px;
         }
 
         nav {
-            background: #2d3748;
-            padding: 1rem;
-            text-align: center;
-            position: sticky;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-
-        nav a:hover {
-            background: #4a5568;
-        }
-
-        .welcome {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            height: 100vh;
+        nav ul {
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .welcome h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .welcome p {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            max-width: 600px;
-        }
-
-        section {
-            padding: 3rem 2rem;
-            max-width: 900px;
+            gap: 2rem;
+            list-style: none;
+            max-width: 800px;
             margin: 0 auto;
         }
 
-        h2 {
-            color: #667eea;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .profile-content {
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--purple-primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+        }
+
+        nav a:hover::after {
+            width: 60%;
+        }
+
+        .hero {
+            min-height: 100vh;
             display: flex;
-            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, var(--purple-glow), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(147, 51, 234, 0.15), transparent);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--purple-primary), #7c3aed);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px var(--purple-glow); }
+            50% { box-shadow: 0 0 40px var(--purple-glow), 0 0 60px rgba(147, 51, 234, 0.2); }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--purple-light) 50%, var(--text-primary) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
             flex-wrap: wrap;
         }
 
-        .profile-text {
-            flex: 1;
-            min-width: 280px;
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple-primary), #7c3aed);
+            color: white;
+            box-shadow: 0 4px 20px var(--purple-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--purple-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--purple-primary);
+            background: rgba(147, 51, 234, 0.1);
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border: 2px solid var(--purple-primary);
+            opacity: 0.1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -5s;
+            transform: rotate(45deg);
+        }
+
+        .shape:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        section {
+            padding: 5rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--purple-primary), var(--purple-light));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        .profile-section {
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--purple-primary), var(--purple-light), var(--purple-primary));
+            background-size: 200% 100%;
+            animation: gradient-move 2s linear infinite;
+        }
+
+        @keyframes gradient-move {
+            0% { background-position: 0% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .profile-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 20px 40px var(--purple-glow);
+            position: relative;
+        }
+
+        .profile-avatar::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 27px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(10px);
+        }
+
+        .profile-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--purple-light);
+        }
+
+        .profile-info .role {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--purple-light);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .skills-section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid var(--border-subtle);
         }
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 1rem;
         }
 
         .skill-card {
-            background: #f7fafc;
-            padding: 1rem;
-            border-radius: 8px;
+            background: var(--bg-dark);
+            padding: 1.5rem 1rem;
+            border-radius: 16px;
             text-align: center;
-            border: 2px solid #e2e8f0;
-            transition: transform 0.2s, border-color 0.2s;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--purple-primary), var(--purple-light));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
 
         .skill-card:hover {
-            transform: translateY(-3px);
-            border-color: #667eea;
+            transform: translateY(-5px);
+            border-color: var(--purple-primary);
+            box-shadow: 0 10px 30px var(--purple-glow);
+        }
+
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .projects-section {
+            position: relative;
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
         }
 
         .project-card {
-            background: white;
-            border-radius: 12px;
+            background: var(--bg-card);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--purple-primary), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            border-color: var(--purple-primary);
+            box-shadow: 0 20px 40px rgba(147, 51, 234, 0.2);
+        }
+
+        .project-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(147, 51, 234, 0.05));
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .project-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .project-header h3 {
+            font-size: 1.3rem;
+            color: var(--text-primary);
         }
 
         .project-content {
             padding: 1.5rem;
         }
 
-        .project-content h3 {
-            margin-bottom: 0.5rem;
-            color: #2d3748;
+        .project-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
-        .project-content p {
-            color: #718096;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tag {
+            background: rgba(147, 51, 234, 0.2);
+            color: var(--purple-light);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'Space Mono', monospace;
         }
 
         .project-link {
-            display: inline-block;
-            color: #667eea;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--purple-light);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
         .project-link:hover {
-            text-decoration: underline;
+            gap: 1rem;
+        }
+
+        .project-link svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-link:hover svg {
+            transform: translateX(5px);
+        }
+
+        .social-section {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid var(--border-subtle);
+            text-align: center;
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
+            justify-content: center;
+            gap: 1.5rem;
             flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .social-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            background: #667eea;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            transition: background 0.3s;
-        }
-
-        .social-btn:hover {
-            background: #5a67d8;
-        }
-
-        .social-btn.linkedin {
-            background: #0077b5;
-        }
-
-        .social-btn.linkedin:hover {
-            background: #005885;
-        }
-
-        .social-btn.codewars {
-            background: #b1361e;
-        }
-
-        .social-btn.codewars:hover {
-            background: #8a2a17;
-        }
-
-        footer {
-            background: #2d3748;
-            color: white;
-            text-align: center;
-            padding: 2rem;
             margin-top: 2rem;
         }
 
+        .social-card {
+            background: var(--bg-dark);
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            text-decoration: none;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 180px;
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--purple-primary);
+            box-shadow: 0 10px 30px var(--purple-glow);
+        }
+
+        .social-icon {
+            font-size: 1.8rem;
+        }
+
+        .social-info {
+            text-align: left;
+        }
+
+        .social-name {
+            color: var(--text-primary);
+            font-weight: 600;
+            display: block;
+        }
+
+        .social-handle {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-subtle);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--purple-light);
+        }
+
         @media (max-width: 768px) {
-            .welcome h1 {
-                font-size: 2.5rem;
-            }
-            
-            nav a {
-                display: inline-block;
-                margin: 0.3rem;
-                padding: 0.4rem 0.8rem;
-                font-size: 0.9rem;
+            nav ul {
+                gap: 0.5rem;
+                flex-wrap: wrap;
             }
 
-            .social-links {
-                flex-direction: column;
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-avatar {
+                margin: 0 auto;
+            }
+
+            .profile-stats {
+                justify-content: center;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-card {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
     <nav>
-        <a href="#welcome">Home</a>
-        <a href="#profile">Profile</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#social">Social</a>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#social">Connect</a></li>
+        </ul>
     </nav>
 
-    <section id="welcome" class="welcome">
-        <h1>Welcome to My Portfolio</h1>
-        <p>Hi! I'm VhispDobola, a developer passionate about building cool things on the web. I love creating interactive experiences and learning new technologies.</p>
+    <section id="hero" class="hero">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">Available for Projects</div>
+            <h1>VhispDobola</h1>
+            <p class="hero-subtitle">Software Developer & Game Creator crafting immersive experiences and powerful applications</p>
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#social" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
     </section>
 
     <section id="profile">
-        <h2>Profile</h2>
-        <div class="profile-content">
-            <div class="profile-text">
-                <p>I'm a software developer with a passion for web development and creating interactive applications. My journey in tech started with a curiosity for how websites work, and it has grown into a career building modern, responsive web applications.</p>
-                <br>
-                <p>I specialize in front-end development but am always eager to learn new technologies and take on new challenges. When I'm not coding, you can find me exploring new frameworks, contributing to open source, or working on personal projects.</p>
+        <div class="section-header">
+            <h2>About Me</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="profile-section">
+            <div class="profile-grid">
+                <div class="profile-avatar">VD</div>
+                <div class="profile-info">
+                    <h3>Hello, I'm VhispDobola</h3>
+                    <p class="role">Software Developer & Game Developer</p>
+                    <p>I'm a passionate developer specializing in building modern web applications and interactive games. My journey in tech is driven by curiosity and a desire to create meaningful digital experiences. From bullet-hell games with multiplayer capabilities to responsive web portfolios, I love bringing ideas to life through code.</p>
+                    <p style="margin-top: 1rem;">When I'm not coding, you'll find me exploring new technologies, contributing to open source, or diving into game development projects. I'm always eager to learn and take on new challenges!</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">Years Coding</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">Projects</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">Possibilities</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="skills">
-        <h2>Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-card">HTML</div>
-            <div class="skill-card">CSS</div>
-            <div class="skill-card">JavaScript</div>
-            <div class="skill-card">Python</div>
-            <div class="skill-card">Git</div>
-            <div class="skill-card">React</div>
+        <div class="section-header">
+            <h2>Skills & Technologies</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="skills-section">
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">🌐</div>
+                    <div class="skill-name">HTML5</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎨</div>
+                    <div class="skill-name">CSS3</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚡</div>
+                    <div class="skill-name">JavaScript</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🐍</div>
+                    <div class="skill-name">Python</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎮</div>
+                    <div class="skill-name">Pygame</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚛️</div>
+                    <div class="skill-name">React</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📦</div>
+                    <div class="skill-name">Git</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">☁️</div>
+                    <div class="skill-name">Cloud</div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="projects">
-        <h2>Projects</h2>
+    <section id="projects" class="projects-section">
+        <div class="section-header">
+            <h2>Featured Projects</h2>
+            <div class="section-line"></div>
+        </div>
         <div class="projects-grid">
             <div class="project-card">
-                <div class="project-content">
+                <div class="project-header">
+                    <div class="project-icon">👹</div>
                     <h3>Boss Rush</h3>
-                    <p>A local co-op bullet-hell boss game built with Python and Pygame. Features multiplayer support for up to 4 players.</p>
-                    <a href="https://github.com/VhispDobola/windsurf-project-3" class="project-link" target="_blank">View on GitHub →</a>
+                </div>
+                <div class="project-content">
+                    <p>A local co-op bullet-hell boss game built with Python and Pygame. Features multiplayer support for up to 4 players with networked gameplay.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Pygame</span>
+                        <span class="project-tag">Multiplayer</span>
+                    </div>
+                    <a href="https://github.com/VhispDobola/windsurf-project-3" class="project-link" target="_blank">
+                        View on GitHub
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    </a>
                 </div>
             </div>
             <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">💼</div>
+                    <h3>Portfolio Website</h3>
+                </div>
                 <div class="project-content">
-                    <h3>Personal Portfolio</h3>
-                    <p>A responsive portfolio website showcasing my skills and projects.</p>
-                    <a href="https://vhispdobola.github.io" class="project-link" target="_blank">View Project →</a>
+                    <p>A responsive portfolio website showcasing skills, projects, and professional journey with a modern dark theme.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML</span>
+                        <span class="project-tag">CSS</span>
+                        <span class="project-tag">JavaScript</span>
+                    </div>
+                    <a href="https://vhispdobola.github.io" class="project-link" target="_blank">
+                        View Live Site
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    </a>
                 </div>
             </div>
             <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">🚀</div>
+                    <h3>Web Experiments</h3>
+                </div>
                 <div class="project-content">
-                    <h3>JavaScript Projects</h3>
-                    <p>Collection of JavaScript projects and experiments.</p>
-                    <a href="https://github.com/VhispDobola" class="project-link" target="_blank">View on GitHub →</a>
+                    <p>Collection of JavaScript projects and experiments exploring modern web technologies and interactive experiences.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">JavaScript</span>
+                        <span class="project-tag">Web APIs</span>
+                        <span class="project-tag">UI/UX</span>
+                    </div>
+                    <a href="https://github.com/VhispDobola" class="project-link" target="_blank">
+                        View on GitHub
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="social">
-        <h2>Connect With Me</h2>
-        <p>Check out my profiles on various platforms:</p>
-        <div class="social-links">
-            <a href="https://github.com/VhispDobola" class="social-btn" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/in/vhispdobola" class="social-btn linkedin" target="_blank">LinkedIn</a>
-            <a href="https://www.codewars.com/users/VhispDobola" class="social-btn codewars" target="_blank">CodeWars</a>
+        <div class="section-header">
+            <h2>Connect With Me</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="social-section">
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">Let's collaborate, code together, or just say hi!</p>
+            <div class="social-links">
+                <a href="https://github.com/VhispDobola" class="social-card" target="_blank">
+                    <div class="social-icon">🐙</div>
+                    <div class="social-info">
+                        <span class="social-name">GitHub</span>
+                        <span class="social-handle">@VhispDobola</span>
+                    </div>
+                </a>
+                <a href="https://linkedin.com/in/vhispdobola" class="social-card" target="_blank">
+                    <div class="social-icon">💼</div>
+                    <div class="social-info">
+                        <span class="social-name">LinkedIn</span>
+                        <span class="social-handle">Connect with me</span>
+                    </div>
+                </a>
+                <a href="https://www.codewars.com/users/VhispDobola" class="social-card" target="_blank">
+                    <div class="social-icon">⚔️</div>
+                    <div class="social-info">
+                        <span class="social-name">CodeWars</span>
+                        <span class="social-handle">@VhispDobola</span>
+                    </div>
+                </a>
+            </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 VhispDobola. Built with passion.</p>
+        <div class="footer-content">
+            <p>&copy; 2026 VhispDobola. All rights reserved.</p>
+            <p style="font-size: 0.9rem;">Built with passion and a lot of ☕</p>
+            <div class="footer-links">
+                <a href="#hero">Home</a>
+                <a href="#projects">Projects</a>
+                <a href="#social">Contact</a>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
