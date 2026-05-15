@@ -17,23 +17,6 @@
             color: #333;
         }
 
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
         nav {
             background: #2d3748;
             padding: 1rem;
@@ -56,6 +39,29 @@
             background: #4a5568;
         }
 
+        .welcome {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .welcome h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .welcome p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
         section {
             padding: 3rem 2rem;
             max-width: 900px;
@@ -68,13 +74,13 @@
             font-size: 1.8rem;
         }
 
-        .about-content {
+        .profile-content {
             display: flex;
             gap: 2rem;
             flex-wrap: wrap;
         }
 
-        .about-text {
+        .profile-text {
             flex: 1;
             min-width: 280px;
         }
@@ -144,14 +150,17 @@
             text-decoration: underline;
         }
 
-        .contact-links {
+        .social-links {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
+            margin-top: 1rem;
         }
 
-        .contact-btn {
-            display: inline-block;
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             padding: 0.8rem 1.5rem;
             background: #667eea;
             color: white;
@@ -160,8 +169,24 @@
             transition: background 0.3s;
         }
 
-        .contact-btn:hover {
+        .social-btn:hover {
             background: #5a67d8;
+        }
+
+        .social-btn.linkedin {
+            background: #0077b5;
+        }
+
+        .social-btn.linkedin:hover {
+            background: #005885;
+        }
+
+        .social-btn.codewars {
+            background: #b1361e;
+        }
+
+        .social-btn.codewars:hover {
+            background: #8a2a17;
         }
 
         footer {
@@ -172,38 +197,45 @@
             margin-top: 2rem;
         }
 
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 2rem;
+        @media (max-width: 768px) {
+            .welcome h1 {
+                font-size: 2.5rem;
             }
             
             nav a {
-                display: block;
-                margin: 0.5rem 0;
+                display: inline-block;
+                margin: 0.3rem;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .social-links {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>VhispDobola</h1>
-        <p>Developer & Creator</p>
-    </header>
-
     <nav>
-        <a href="#about">About</a>
+        <a href="#welcome">Home</a>
+        <a href="#profile">Profile</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+        <a href="#social">Social</a>
     </nav>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p>Hi! I'm a developer passionate about building cool things on the web. I love creating interactive experiences and learning new technologies.</p>
+    <section id="welcome" class="welcome">
+        <h1>Welcome to My Portfolio</h1>
+        <p>Hi! I'm VhispDobola, a developer passionate about building cool things on the web. I love creating interactive experiences and learning new technologies.</p>
+    </section>
+
+    <section id="profile">
+        <h2>Profile</h2>
+        <div class="profile-content">
+            <div class="profile-text">
+                <p>I'm a software developer with a passion for web development and creating interactive applications. My journey in tech started with a curiosity for how websites work, and it has grown into a career building modern, responsive web applications.</p>
                 <br>
-                <p>When I'm not coding, you can find me exploring new frameworks, contributing to open source, or experimenting with creative web projects.</p>
+                <p>I specialize in front-end development but am always eager to learn new technologies and take on new challenges. When I'm not coding, you can find me exploring new frameworks, contributing to open source, or working on personal projects.</p>
             </div>
         </div>
     </section>
@@ -225,35 +257,35 @@
         <div class="projects-grid">
             <div class="project-card">
                 <div class="project-content">
-                    <h3>Project One</h3>
-                    <p>A brief description of your first project.</p>
-                    <a href="#" class="project-link">View Project →</a>
+                    <h3>Personal Portfolio</h3>
+                    <p>A responsive portfolio website showcasing my skills and projects.</p>
+                    <a href="https://vhispdobola.github.io" class="project-link" target="_blank">View Project →</a>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-content">
-                    <h3>Project Two</h3>
-                    <p>A brief description of your second project.</p>
-                    <a href="#" class="project-link">View Project →</a>
+                    <h3>Web Application</h3>
+                    <p>A web application built with modern technologies.</p>
+                    <a href="https://github.com/VhispDobola" class="project-link" target="_blank">View on GitHub →</a>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-content">
-                    <h3>Project Three</h3>
-                    <p>A brief description of your third project.</p>
-                    <a href="#" class="project-link">View Project →</a>
+                    <h3>JavaScript Projects</h3>
+                    <p>Collection of JavaScript projects and experiments.</p>
+                    <a href="https://github.com/VhispDobola" class="project-link" target="_blank">View on GitHub →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Want to connect or collaborate? Here's how you can reach me:</p>
-        <br>
-        <div class="contact-links">
-            <a href="https://github.com/VhispDobola" class="contact-btn" target="_blank">GitHub</a>
-            <a href="#" class="contact-btn">Email</a>
+    <section id="social">
+        <h2>Connect With Me</h2>
+        <p>Check out my profiles on various platforms:</p>
+        <div class="social-links">
+            <a href="https://github.com/VhispDobola" class="social-btn" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/vhispdobola" class="social-btn linkedin" target="_blank">LinkedIn</a>
+            <a href="https://www.codewars.com/users/VhispDobola" class="social-btn codewars" target="_blank">CodeWars</a>
         </div>
     </section>
 
